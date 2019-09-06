@@ -9,8 +9,19 @@
     "build": "babel server.js --out-dir build",
     "start": "node build/server.js"
   },
+  "engines": {
+    "node": "10.15.3",
+    "npm":  "6.4.1"
+  },
+  "repository":{
+    "type": "git",
+    "url":  "git+https://github.com/Emuohwo/quick-credit.git"
+  },
   "author": "Isaac Warri",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Emuohwo/quick-credit"
+  },
   "dependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
