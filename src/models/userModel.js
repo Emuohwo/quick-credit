@@ -1,4 +1,5 @@
 import uuid from 'uuid';
+import passwordHelper from '../helpers/password';
 
 class User {
   /**
@@ -19,11 +20,12 @@ class User {
       email: data.email || '',
       firstname: data.firstname || '',
       lastname: data.lastname || '',
-      password: data.password || '',
+      password: passwordHelper.passwordHash(data.password),
       address: data.address || '',
-      status: 'unverified',
+      status: 'unverified' || validator.isValidUserStatus('verified'),
       isadmin: data.isadmin || '',
     };
+    
     this.users.push(newUser);
     return newUser;
   }
@@ -36,6 +38,18 @@ class User {
   findAUser(id) {
     return this.users.find((user) => user.id === id);
   }
+
+  findAUserByEmail(email) {
+    return this.users.find((user) => user.email === email);
+  }
+
+  // logInUser(email, password) {
+  //   const aUser = 'SELECT * FROM this.users WHERE email = $1';
+  //   const foundUser = this.findAUserByEmail(email);
+  //   if (foundUser  && passwordHelper.comparePasswords(password, foundUser.password)) {
+  //     return foundUser;
+  //   }
+  // }
 
   /**
    * @returns {object} returns all users
