@@ -11,12 +11,10 @@ router.get('/', (req, res) => {
 });
 
 router.post('/api/v1/auth/signup',  User.signUpUser);
-// router.post('/api/v1/users/auth/signin',  User.logInUser);
-router.get('/api/v1/users', User.getAllUsers);
-router.get('/api/v1/users/:id', User.getOneUser);
-router.put('/api/v1/users/:id', User.updateUser);
-router.patch('/api/v1/users/:id/status', Auth.authenticateUser, User.updateUser);
-router.delete('/api/v1/users/:id', User.deleteUser);
+router.post('/api/v1/auth/signin',  User.logInUser);
+router.get('/api/v1/users/:email', User.getUserByEmail);
+// router.get('/api/v1/users/:id', User.getUserById);
+router.patch('/api/v1/users/:email/verify', User.verifyUser);
 
 router.post('/api/v1/loans', Loan.applyForLoan);
 router.get('/api/v1/loans', Loan.getAllLoans);

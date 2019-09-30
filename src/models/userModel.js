@@ -1,5 +1,6 @@
-import uuid from 'uuid';
+// import uuid from 'uuid';
 import passwordHelper from '../helpers/password';
+import pool from '../config/config';
 
 class User {
   /**
@@ -14,30 +15,36 @@ class User {
    *
    * @returns {object} user object
    */
-  signUpUser(data) {
-    const newUser = {
-      id: uuid.v4(),
-      email: data.email || '',
-      firstname: data.firstname || '',
-      lastname: data.lastname || '',
-      password: passwordHelper.passwordHash(data.password),
-      address: data.address || '',
-      status: 'unverified' || validator.isValidUserStatus('verified'),
-      isadmin: data.isadmin || '',
-    };
-    
-    this.users.push(newUser);
-    return newUser;
+  async createUser(formData) {
+    const queryString = `INSERT INTO ${this.users} ( email, firstname, lastname, password, address) VALUES($1, $2, $3, $4, $5, $6) returning *`
   }
 
-  /**
-   *
-   * @param {uuid} id
-   * @returns {object} user object
-   */
-  findAUser(id) {
-    return this.users.find((user) => user.id === id);
-  }
+  // async signUpUser(signupData) {
+  //   const id = uuid();
+  //   const password = passwordHelper.passwordHash(signupData.password)
+  //   const { email, firstname, lastname, password, address, status,  isadmin, createdon } = signupData;
+  //   try {
+  //     const { rows } = await this.users.insert(
+  //       'id, email, firstname, lastname, password, address', '$1, $2, $3, $4, $5, $6',
+  //       [
+  //         id, email, firstname, lastname, password, address
+  //       ],
+  //     );
+  //     this.users.push(rows[0]);
+  //     return rows[0];
+  //   } catch (error) {
+  //     throw error
+  //   }
+    
+  // }
+
+  
+  // findUserById(id) {
+  //   try {
+  //     const { rows } = await this
+  //   }
+  //   return this.users.find((user) => user.id === id);
+  // }
 
   findAUserByEmail(email) {
     return this.users.find((user) => user.email === email);

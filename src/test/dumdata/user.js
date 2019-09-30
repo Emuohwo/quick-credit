@@ -17,6 +17,6 @@ const users = [
     password: 'Mike',
     address: '11a, lagos, Nigeria',
     status: 'verified',
-    isadmin: 'false',
+    isadmin: false,
   },
 ];
