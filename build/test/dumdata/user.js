@@ -1,5 +1,9 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 var users = [{
   id: 'ca6b7e7e-65d9-4bca-a5dc-76572dd97435',
   email: 'fakeemail@gmail.com',
@@ -19,3 +23,5 @@ var users = [{
   status: 'verified',
   isadmin: false
 }];
+var _default = users;
+exports["default"] = _default;

@@ -30,7 +30,7 @@ var User = {
     var _signUpUser = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee(req, res) {
-      var hashPassword, columns, columnsValues, _ref, rows, token, _rows$, id, email, firstname, lastname, password, address, status, isadmin, createdon, user;
+      var hashPassword, columns, columnsValues, _ref, rows, token, _rows$, id, email, firstname, lastname, address, status, isadmin, createdon, user;
 
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -62,9 +62,9 @@ var User = {
             case 10:
               _ref = _context.sent;
               rows = _ref.rows;
-              console.log(rows[0]);
+              // console.log(rows[0]);
               token = (0, _token["default"])(rows[0].id, rows[0].isadmin);
-              _rows$ = rows[0], id = _rows$.id, email = _rows$.email, firstname = _rows$.firstname, lastname = _rows$.lastname, password = _rows$.password, address = _rows$.address, status = _rows$.status, isadmin = _rows$.isadmin, createdon = _rows$.createdon;
+              _rows$ = rows[0], id = _rows$.id, email = _rows$.email, firstname = _rows$.firstname, lastname = _rows$.lastname, address = _rows$.address, status = _rows$.status, isadmin = _rows$.isadmin, createdon = _rows$.createdon;
               user = {
                 id: id,
                 email: email,
@@ -72,7 +72,8 @@ var User = {
                 lastname: lastname,
                 address: address,
                 status: status,
-                createdon: createdon
+                createdon: createdon,
+                isadmin: isadmin
               };
               return _context.abrupt("return", res.status(201).send({
                 status: 201,
@@ -83,20 +84,20 @@ var User = {
                 }]
               }));
 
-            case 19:
-              _context.prev = 19;
+            case 18:
+              _context.prev = 18;
               _context.t0 = _context["catch"](7);
 
               if (!(_context.t0.routine === '_bt_check_unique')) {
-                _context.next = 23;
+                _context.next = 22;
                 break;
               }
 
               return _context.abrupt("return", res.status(400).send({
-                'message': 'User already exist'
+                message: 'User already exist'
               }));
 
-            case 23:
+            case 22:
               return _context.abrupt("return", res.status(400).send({
                 status: 400,
                 error: {
@@ -104,12 +105,12 @@ var User = {
                 }
               }));
 
-            case 24:
+            case 23:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[7, 19]]);
+      }, _callee, null, [[7, 18]]);
     }));
 
     function signUpUser(_x, _x2) {
@@ -122,7 +123,7 @@ var User = {
     var _logInUser = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee2(req, res) {
-      var column, _ref2, rows, _rows$2, id, email, firstname, lastname, password, address, status, isadmin, createdon, user, token;
+      var column, _ref2, rows, _rows$2, id, email, firstname, lastname, address, status, isadmin, createdon, user, token;
 
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
@@ -153,7 +154,7 @@ var User = {
               return _context2.abrupt("return", res.status(401).send('Incorrect Password'));
 
             case 10:
-              _rows$2 = rows[0], id = _rows$2.id, email = _rows$2.email, firstname = _rows$2.firstname, lastname = _rows$2.lastname, password = _rows$2.password, address = _rows$2.address, status = _rows$2.status, isadmin = _rows$2.isadmin, createdon = _rows$2.createdon;
+              _rows$2 = rows[0], id = _rows$2.id, email = _rows$2.email, firstname = _rows$2.firstname, lastname = _rows$2.lastname, address = _rows$2.address, status = _rows$2.status, isadmin = _rows$2.isadmin, createdon = _rows$2.createdon;
               user = {
                 id: id,
                 email: email,
@@ -161,7 +162,8 @@ var User = {
                 lastname: lastname,
                 address: address,
                 status: status,
-                createdon: createdon
+                createdon: createdon,
+                isadmin: isadmin
               };
               token = (0, _token["default"])(rows[0].id, rows[0].isadmin);
               return _context2.abrupt("return", res.status(200).send({
@@ -287,10 +289,7 @@ var User = {
             case 11:
               _context4.prev = 11;
               _context4.t0 = _context4["catch"](1);
-              return _context4.abrupt("return", res.status(400).send({
-                status: 400,
-                error: 'enter a valid email'
-              }));
+              return _context4.abrupt("return", res.status(400).send(_context4.t0));
 
             case 14:
             case "end":
@@ -317,7 +316,7 @@ var User = {
           switch (_context5.prev = _context5.next) {
             case 0:
               finduser = 'SELECT * FROM users WHERE email = $1';
-              updateUser = "UPDATE users SET status=$1 WHERE email=$2 returning *";
+              updateUser = 'UPDATE users SET status=$1 WHERE email=$2 returning *';
               _context5.prev = 2;
               _context5.next = 5;
               return _db["default"].query(finduser, [req.params.email]);
@@ -334,7 +333,7 @@ var User = {
               return _context5.abrupt("return", 'status can either be "verified or unverified"');
 
             case 9:
-              values = ['verified', req.params.email];
+              values = [req.body.status, req.params.email];
               _context5.next = 12;
               return _db["default"].query(updateUser, values);
 
@@ -360,25 +359,7 @@ var User = {
     }
 
     return verifyUser;
-  }(),
-
-  /**
-     *
-     * @param {object} req
-     * @param {object} res
-     * @returns {object} reflection object
-     */
-  getOneUser: function getOneUser(req, res) {
-    var user = UserModel.findAUser(req.params.id);
-
-    if (!user) {
-      return res.status(404).send({
-        message: 'user not found'
-      });
-    }
-
-    return res.status(200).send(user);
-  }
+  }()
 };
 var _default = User;
 exports["default"] = _default;

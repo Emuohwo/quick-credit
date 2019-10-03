@@ -12,9 +12,10 @@ var validInput = {
     return /^(\S+)/.test(input);
   },
   isValidUserStatus: function isValidUserStatus(status) {
-    status: 'unverified' || 'verified' || '';
-
-    return status;
+    return /(unverified|verified)/.test(status);
+  },
+  isValidLoanStatus: function isValidLoanStatus(status) {
+    return /approved|rejected|pending/i.test(status);
   }
 };
 var _default = validInput;

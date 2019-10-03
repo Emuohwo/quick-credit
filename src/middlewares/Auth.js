@@ -22,16 +22,16 @@ class Auth {
       return next();
     } catch (error) {
       if (error.message === 'jwt expired') {
-          return response.status(419).send({
-              status: 419,
-              response,
-              error: 'Ooops! an error occurred, Kindly login again',
-          });
+        return response.status(419).send({
+          status: 419,
+          response,
+          error: 'Ooops! an error occurred, Kindly login again',
+        });
       }
       return response.status(401).send({
-          status: 401,
-          response,
-          error: 'Kindly login to provide token',
+        status: 401,
+        response,
+        error: 'Kindly login to provide token',
       });
     }
   }
@@ -47,26 +47,26 @@ class Auth {
     try {
       const token = request.headers.authorization;
       request.user = Auth.verifyToken(token);
-      if (request.user.isadmin === false || request.user.isadmin === "") {
-          return response.status(403).send({
-              status: 403,
-              response,
-              error: 'Only admin have access to this operation',
-          });
+      if (request.user.isadmin === false || request.user.isadmin === '') {
+        return response.status(403).send({
+          status: 403,
+          response,
+          error: 'Only admin have access to this operation',
+        });
       }
       return next();
     } catch (error) {
       if (error.message === 'jwt expired') {
         return response.status(419).send({
-            status: 419,
-            response,
-            error: 'Ooops! an error occurred, Kindly login again',
+          status: 419,
+          response,
+          error: 'Ooops! an error occurred, Kindly login again',
         });
       }
       return response.status(401).send({
-          status: 401,
-          response,
-          error: 'Kindly login to provide token',
+        status: 401,
+        response,
+        error: 'Kindly login to provide token',
       });
     }
   }

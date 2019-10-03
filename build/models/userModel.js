@@ -5,22 +5,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _password = _interopRequireDefault(require("../helpers/password"));
-
-var _config = _interopRequireDefault(require("../config/config"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+// import uuid from 'uuid';
+// import passwordHelper from '../helpers/password';
+// import pool from '../config/config';
 var User =
 /*#__PURE__*/
 function () {
@@ -37,59 +30,37 @@ function () {
    *
    * @returns {object} user object
    */
+  // async createUser(formData) {
+  // eslint-disable-next-line max-len
+  //   const queryString = `INSERT INTO ${this.users} ( email, firstname, lastname, password, address) VALUES($1, $2, $3, $4, $5, $6) returning *`;
+  // }
+  // async signUpUser(signupData) {
+  //   const id = uuid();
+  //   const password = passwordHelper.passwordHash(signupData.password)
+  // eslint-disable-next-line max-len
+  //   const { email, firstname, lastname, password, address, status,  isadmin, createdon } = signupData;
+  //   try {
+  //     const { rows } = await this.users.insert(
+  //       'id, email, firstname, lastname, password, address', '$1, $2, $3, $4, $5, $6',
+  //       [
+  //         id, email, firstname, lastname, password, address
+  //       ],
+  //     );
+  //     this.users.push(rows[0]);
+  //     return rows[0];
+  //   } catch (error) {
+  //     throw error
+  //   }
+  // }
+  // findUserById(id) {
+  //   try {
+  //     const { rows } = await this
+  //   }
+  //   return this.users.find((user) => user.id === id);
+  // }
 
 
   _createClass(User, [{
-    key: "createUser",
-    value: function () {
-      var _createUser = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(formData) {
-        var queryString;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                queryString = "INSERT INTO ".concat(this.users, " ( email, firstname, lastname, password, address) VALUES($1, $2, $3, $4, $5, $6) returning *");
-
-              case 1:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function createUser(_x) {
-        return _createUser.apply(this, arguments);
-      }
-
-      return createUser;
-    }() // async signUpUser(signupData) {
-    //   const id = uuid();
-    //   const password = passwordHelper.passwordHash(signupData.password)
-    //   const { email, firstname, lastname, password, address, status,  isadmin, createdon } = signupData;
-    //   try {
-    //     const { rows } = await this.users.insert(
-    //       'id, email, firstname, lastname, password, address', '$1, $2, $3, $4, $5, $6',
-    //       [
-    //         id, email, firstname, lastname, password, address
-    //       ],
-    //     );
-    //     this.users.push(rows[0]);
-    //     return rows[0];
-    //   } catch (error) {
-    //     throw error
-    //   }
-    // }
-    // findUserById(id) {
-    //   try {
-    //     const { rows } = await this
-    //   }
-    //   return this.users.find((user) => user.id === id);
-    // }
-
-  }, {
     key: "findAUserByEmail",
     value: function findAUserByEmail(email) {
       return this.users.find(function (user) {

@@ -9,30 +9,13 @@ const pool = new Pool({
 });
 
 pool.on('connect', () => {
+  // eslint-disable-next-line no-console
   console.log('connected to the db');
 });
 
-const createRepayments = async () => {
-    await pool.query(`
-        CREATE TABLE repayments(
-            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-            createdon TIMESTAMP NOT NULL DEFAULT NOW(),
-            loanid UUID NOT NULL,
-            amount NUMERIC(10, 2) DEFAULT 0.00
-        );
-        
-    `)
-    .then((res) => {
-        console.log(res)
-        pool.end();
-    })
-    .catch ((err) => {
-        console.log(err.message);
-    }); 
-}
 
 const createUsers = async () => {
-    const userQuery = `
+  const userQuery = `
     CREATE TABLE users(
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         email VARCHAR(255) UNIQUE NOT NULL,
@@ -45,17 +28,19 @@ const createUsers = async () => {
         createdon TIMESTAMP NOT NULL DEFAULT NOW()
     )
     `;
-    await pool.query(userQuery)
+  await pool.query(userQuery)
     .then((res) => {
-        console.log(res);
+      // eslint-disable-next-line no-console
+      console.log(res);
     })
-    .catch ((error) => {
-        console.log(error.message);
-    })
-}
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.log(error.message);
+    });
+};
 
 const createLoans = async () => {
-    const loanQuery = `
+  const loanQuery = `
     CREATE TABLE IF NOT EXISTS 
     loans(
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -70,17 +55,40 @@ const createLoans = async () => {
         interest NUMERIC(10, 2) NOT NULL
     )
     `;
-    await pool.query(loanQuery)
+  await pool.query(loanQuery)
     .then((res) => {
-        console.log(res);
+      // eslint-disable-next-line no-console
+      console.log(res);
     })
-    .catch ((error) => {
-        console.log(error.message);
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.log(error.message);
+    });
+};
+
+const createRepayments = async () => {
+  await pool.query(`
+        CREATE TABLE repayments(
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            createdon TIMESTAMP NOT NULL DEFAULT NOW(),
+            loanid UUID NOT NULL REFERENCES loans(id) ON DELETE CASCADE,
+            amount NUMERIC(10, 2) NOT NULL
+        );
+        
+    `)
+    .then((res) => {
+      // eslint-disable-next-line no-console
+      console.log(res);
+      pool.end();
     })
-}
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log(err.message);
+    });
+};
 
 const createAdmin = async () => {
-    const adminQuery = `
+  const adminQuery = `
     INSERT INTO users (
         id, email, firstname, lastname, address, password, status, isadmin
     ) VALUES (
@@ -94,14 +102,16 @@ const createAdmin = async () => {
         true
     )
     `;
-    await pool.query(adminQuery)
+  await pool.query(adminQuery)
     .then((res) => {
-        console.log(res);
+      // eslint-disable-next-line no-console
+      console.log(res);
     })
-    .catch ((error) => {
-        console.log(error.message);
-    })
-}
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.log(error.message);
+    });
+};
 
 createUsers();
 createLoans();

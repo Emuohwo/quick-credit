@@ -14,13 +14,12 @@ _chai["default"].should();
 _chai["default"].use(_chaiHttp["default"]);
 
 var validUser = {
-  "email": " Mikegold@gmail.com",
-  "firstname": "Mike",
-  "lastname": "Gold",
-  "password": "Mike",
-  "address": "11a, lagos, Nigeria",
-  status: 'verified',
-  "isadmin": false
+  email: ' Mikegold@gmail.com',
+  firstname: 'Mike',
+  lastname: 'Gold',
+  password: 'Mike',
+  address: '11a, lagos, Nigeria',
+  isadmin: false
 };
 var wrongUserEmailformat = {
   email: 'Mikegold@gmailcom ',
@@ -40,18 +39,18 @@ var userWithNoFirstname = {
   isadmin: false
 };
 var userWithNoPassword = {
-  email: " Mikegold@gmail.com",
-  firstname: "Mike",
-  lastname: "Gold",
-  address: "11a, lagos, Nigeria",
+  email: ' Mikegold@gmail.com',
+  firstname: 'Mike',
+  lastname: 'Gold',
+  address: '11a, lagos, Nigeria',
   status: 'verified',
   isadmin: false
 };
 var invalidUserStatus = {
-  email: " Mikegold@gmail.com",
-  firstname: "Mike",
-  lastname: "Gold",
-  address: "11a, lagos, Nigeria",
+  email: ' Mikegold@gmail.com',
+  firstname: 'Mike',
+  lastname: 'Gold',
+  address: '11a, lagos, Nigeria',
   status: 'alive',
   isadmin: false
 };

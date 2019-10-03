@@ -11,11 +11,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var _default = {
   /**
-   * DB Query
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} object
-   */
+     * DB Query
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} object
+     */
   query: function query(text, params) {
     return new Promise(function (resolve, reject) {
       _config["default"].query(text, params).then(function (res) {

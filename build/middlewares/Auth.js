@@ -74,7 +74,7 @@ function () {
         var token = request.headers.authorization;
         request.user = Auth.verifyToken(token);
 
-        if (request.user.isadmin === false || request.user.isadmin === "") {
+        if (request.user.isadmin === false || request.user.isadmin === '') {
           return response.status(403).send({
             status: 403,
             response: response,

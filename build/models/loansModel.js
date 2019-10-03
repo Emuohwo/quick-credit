@@ -48,9 +48,10 @@ function () {
         amount: parseFloat(data.amount),
         balance: data.balance || ''
       };
-      newLoan.interest = newLoan.amount * 0.05;
-      newLoan.paymentInstallment = parseFloat((newLoan.amount + newLoan.interest) / newLoan.tenor).toFixed(2);
-      newLoan.paymentInstallment;
+      newLoan.interest = newLoan.amount * 0.05; // eslint-disable-next-line max-len
+
+      newLoan.paymentInstallment = parseFloat((newLoan.amount + newLoan.interest) / newLoan.tenor).toFixed(2); // newLoan.paymentInstallment;
+
       this.loans.push(newLoan);
       return newLoan;
     }

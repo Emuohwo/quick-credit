@@ -27,8 +27,9 @@ class Loan {
     };
     newLoan.interest = newLoan.amount * 0.05;
 
+    // eslint-disable-next-line max-len
     newLoan.paymentInstallment = parseFloat((newLoan.amount + newLoan.interest) / newLoan.tenor).toFixed(2);
-    newLoan.paymentInstallment;
+    // newLoan.paymentInstallment;
     this.loans.push(newLoan);
     return newLoan;
   }

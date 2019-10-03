@@ -1,6 +1,6 @@
 // import uuid from 'uuid';
-import passwordHelper from '../helpers/password';
-import pool from '../config/config';
+// import passwordHelper from '../helpers/password';
+// import pool from '../config/config';
 
 class User {
   /**
@@ -15,13 +15,15 @@ class User {
    *
    * @returns {object} user object
    */
-  async createUser(formData) {
-    const queryString = `INSERT INTO ${this.users} ( email, firstname, lastname, password, address) VALUES($1, $2, $3, $4, $5, $6) returning *`
-  }
+  // async createUser(formData) {
+  // eslint-disable-next-line max-len
+  //   const queryString = `INSERT INTO ${this.users} ( email, firstname, lastname, password, address) VALUES($1, $2, $3, $4, $5, $6) returning *`;
+  // }
 
   // async signUpUser(signupData) {
   //   const id = uuid();
   //   const password = passwordHelper.passwordHash(signupData.password)
+  // eslint-disable-next-line max-len
   //   const { email, firstname, lastname, password, address, status,  isadmin, createdon } = signupData;
   //   try {
   //     const { rows } = await this.users.insert(
@@ -35,10 +37,10 @@ class User {
   //   } catch (error) {
   //     throw error
   //   }
-    
+
   // }
 
-  
+
   // findUserById(id) {
   //   try {
   //     const { rows } = await this
