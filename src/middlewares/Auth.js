@@ -1,86 +1,70 @@
 import jwt from 'jsonwebtoken';
+import db from '../models/db/db';
 
-const apiSecret = process.env.API_SECRET;
+// const apiSecret = process.env.API_SECRET;
 
 /*
  * @class Authenticate User
  * @requires jsonwebtoken
  * @requires '../helpers/errorStrings'
  */
-class Auth {
+const Auth = {
   /**
-    * Authenticate users
-    * @param {Object} request
-    * @param {Object} response
-    * @param {callback} next
-    */
-
-  static authenticateUser(request, response, next) {
-    try {
-      const token = request.headers.authorization;
-      request.user = Auth.verifyToken(token);
-      return next();
-    } catch (error) {
-      if (error.message === 'jwt expired') {
-        return response.status(419).send({
-          status: 419,
-          response,
-          error: 'Ooops! an error occurred, Kindly login again',
-        });
+   * Verify Token
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Object} next
+   * @returns {Object|void} response object
+   */
+  async verifyToken(req, res, next) {
+      const token = req.headers['x-access-token'];
+      if (!token) {
+          return res.status(400).send({'message': 'Token is not provided'});
       }
-      return response.status(401).send({
-        status: 401,
-        response,
-        error: 'Kindly login to provide token',
+      try {
+          const decoded = await jwt.verify(token, process.env.API_SECRET);
+          const text = 'SELECT * FROM users WHERE id = $1';
+          const { rows } = await db.query(text, [decoded.userId]);
+          if (!rows[0]) {
+              return res.status(400).send({'meassge': 'The token you provided is invalid'})
+          }
+          req.user = { id: decoded.userId };
+          next();
+      } catch(error) {
+          return res.status(400).send(error);
+      }
+  },
+
+  async isAdmin(req, res, next) {
+    const token = req.headers['x-access-token'];
+    if (!token) {
+      return res.status(401).send({ message: 'Token is not provided' });
+    }
+    const decoded = await jwt.verify(token, process.env.API_SECRET);
+    if (decoded.isadmin === false) {
+      return res.status(403).json({
+        status: 403,
+        error: 'only admin users have access to this route',
       });
     }
-  }
+    return next();
+  },
 
-  /**
- * check Admin role
- * @param {Object} request
- * @param {Object} response
- * @param {Function} next
- * @return {Object}
- */
-  static authenticateAdmin(request, response, next) {
-    try {
-      const token = request.headers.authorization;
-      request.user = Auth.verifyToken(token);
-      if (request.user.isadmin === false || request.user.isadmin === '') {
-        return response.status(403).send({
-          status: 403,
-          response,
-          error: 'Only admin have access to this operation',
-        });
-      }
-      return next();
-    } catch (error) {
-      if (error.message === 'jwt expired') {
-        return response.status(419).send({
-          status: 419,
-          response,
-          error: 'Ooops! an error occurred, Kindly login again',
-        });
-      }
-      return response.status(401).send({
-        status: 401,
-        response,
-        error: 'Kindly login to provide token',
+  async isVerified(req, res, next) {
+    const token = req.headers['x-access-token'];
+    if (!token) {
+      return res.status(401).send({ message: 'Token is not provided' });
+    }
+    const decoded = await jwt.verify(token, process.env.API_SECRET);
+    if (decoded.status !== 'verified') {
+      return res.status(403).json({
+        status: 403,
+        error: 'Your account is not verified',
       });
     }
-  }
+    return next();
+  },
 
-
-  /**
- * Verify a token by using a secret key and a public key.
- * @param {Object} token
- * @return {Object} return verified token
- */
-
-  static verifyToken(token) {
-    return jwt.verify(token, apiSecret);
-  }
 }
 
 export default Auth;

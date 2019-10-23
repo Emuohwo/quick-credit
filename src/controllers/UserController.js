@@ -35,7 +35,7 @@ const User = {
     try {
       const { rows } = await db.query(columns, columnsValues);
       // console.log(rows[0]);
-      const token = generateToken(rows[0].id, rows[0].isadmin);
+      const token = generateToken(rows[0].id, rows[0].isadmin, rows[0].status,);
       const {
         id, email, firstname, lastname, address, status, isadmin, createdon,
       } = rows[0];
@@ -93,7 +93,7 @@ const User = {
         createdon,
         isadmin,
       };
-      const token = generateToken(rows[0].id, rows[0].isadmin);
+      const token = generateToken(rows[0].id, rows[0].isadmin, rows[0].status);
       return res.status(200).send({
         status: 200,
         data: [{
@@ -144,7 +144,7 @@ const User = {
         data: rows[0],
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send(error.message);
     }
   },
 
@@ -157,9 +157,9 @@ const User = {
       // if (!row[0]) {
       //   return res.status(404).send(404,'User not found');
       // }
-      if (!validator.isValidUserStatus(rows[0].status)) {
-        return 'status can either be "verified or unverified"';
-      }
+      // if (!validator.isValidUserStatus(rows[0].status)) {
+      //   return 'status can either be "verified or unverified"';
+      // }
       const values = [
         req.body.status,
         req.params.email,

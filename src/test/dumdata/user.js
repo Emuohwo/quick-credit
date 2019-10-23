@@ -19,6 +19,17 @@ const users = [
     status: 'verified',
     isadmin: false,
   },
+  {
+    "id": "5124742e-e261-4cd9-b1a2-a889df430363",
+    "email": "admin@gmail.com",
+    "firstname": "Admin",
+    "lastname": "Admin",
+    password: 'Administrator',
+    "address": "11a, lagos, Nigeria",
+    "status": "verified",
+    "createdon": "2019-10-21T12:57:07.769Z",
+    "isadmin": true
+},
 ];
 
 export default users;
