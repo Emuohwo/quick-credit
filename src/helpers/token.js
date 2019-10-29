@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const apiSecret = process.env.API_SECRET;
 
 // const generateToken = ({ id, isadmin, status }) => jwt.sign({
 //   id, isadmin, status,
@@ -12,12 +11,11 @@ const apiSecret = process.env.API_SECRET;
 
 const generateToken = (id, isadmin, status) => {
   const token = jwt.sign({
-    userId : id,
-    isadmin: isadmin,
-    status: status,
+    userId: id,
+    isadmin,
+    status,
   },
-  process.env.API_SECRET, {expiresIn: '3d'}
-  );
+  process.env.API_SECRET, { expiresIn: '3d' });
   return token;
-}
+};
 export default generateToken;
